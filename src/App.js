@@ -3,7 +3,7 @@ import Nav from "./components/Nav";
 import Footer from "./components/ui/Footer";
 import {  BrowserRouter as Router, Route} from 'react-router-dom'
 import Home from "./pages/Home";
-import Books from "./pages/books";
+import Books from "./pages/Books";
 
 function App() {
   return (
