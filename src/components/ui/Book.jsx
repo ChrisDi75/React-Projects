@@ -1,15 +1,33 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import Rating from '../Rating';
 import Price from './Price';
 
 export default function Book( {book} ) {
+    const [img, setImg] = useState();
+
+
+    useEffect(() => {
+        const image = new Image();
+        image.src = book.url;
+        image.onload = () => {
+            setTimeout(() => {
+            setImg(image);
+                
+        }, 300);
+    };
+})
+
   return (
-    <div className="book">
-    <Link to={`/books/${book.id}`}>
+        <div className="book">
+{
+        img ? (
+        <>
+
+        <Link to={`/books/${book.id}`}>
         <figure className="book__img--wrapper">
-            <img src={book.url} alt="" className="book__img"/>
+            <img src={img.src} alt="" className="book__img"/>
         </figure>
     </Link>
     <div className="book__title">
@@ -17,6 +35,17 @@ export default function Book( {book} ) {
     </div>
    <Rating rating={book.rating} />
    <Price salePrice={book.salePrice} originalPrice={book.originalPrice} />
+   </>
+        ) : (
+            <> 
+            <div className="book__img--skeleton">
+                <div className="skeleton book__title--skeleton"></div>
+                <div className="skeleton rating--skeleton"></div>
+                <div className="skeleton price--skeleton"></div>
+            </div>
+         </>
+   ) }
 </div> 
- );
+);
 };
+
